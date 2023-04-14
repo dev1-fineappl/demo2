@@ -74,6 +74,14 @@
           }
         },
         {
+          "client_id": "175080276133-fk2d7dfto7n0valdshr0qpmtc666kq77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.trialui",
+            "certificate_hash": "a5d4bdd4b586442da9e64e1911991517f3d56a91"
+          }
+        },
+        {
           "client_id": "175080276133-op5ogcj9sg6fk904pvvikql0cbdqbsbp.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -46,14 +46,19 @@ class _OtppWidgetState extends State<OtppWidget> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          title: Text(
-            'Enter Pin Code Below',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF101213),
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.normal,
-                ),
+          title: InkWell(
+            onTap: () async {
+              context.safePop();
+            },
+            child: Text(
+              'Enter Pin Code Below',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF101213),
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
           ),
           actions: [],
           centerTitle: true,
