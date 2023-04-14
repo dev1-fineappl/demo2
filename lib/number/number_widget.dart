@@ -57,6 +57,12 @@ class _NumberWidgetState extends State<NumberWidget>
             );
           },
         );
+
+        setState(() {
+          FFAppState().phoneNumber = '';
+        });
+      } else {
+        return;
       }
     });
 
