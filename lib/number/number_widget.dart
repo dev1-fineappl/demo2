@@ -31,6 +31,35 @@ class _NumberWidgetState extends State<NumberWidget>
     super.initState();
     _model = createModel(context, () => NumberModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().phoneNumber != null && FFAppState().phoneNumber != '') {
+        final phoneNumberVal = FFAppState().phoneNumber;
+        if (phoneNumberVal == null ||
+            phoneNumberVal.isEmpty ||
+            !phoneNumberVal.startsWith('+')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text('Phone Number is required and has to start with +.'),
+            ),
+          );
+          return;
+        }
+        await authManager.beginPhoneAuth(
+          context: context,
+          phoneNumber: phoneNumberVal,
+          onCodeSent: () async {
+            context.goNamedAuth(
+              'otpp',
+              mounted,
+              ignoreRedirect: true,
+            );
+          },
+        );
+      }
+    });
+
     _model.phoneNumberController ??= TextEditingController();
   }
 
@@ -43,6 +72,8 @@ class _NumberWidgetState extends State<NumberWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -145,6 +176,10 @@ class _NumberWidgetState extends State<NumberWidget>
                       !_model.formKey.currentState!.validate()) {
                     return;
                   }
+                  setState(() {
+                    FFAppState().phoneNumber =
+                        '+91${_model.phoneNumberController.text}';
+                  });
                   final phoneNumberVal =
                       '+91${_model.phoneNumberController.text}';
                   if (phoneNumberVal == null ||
